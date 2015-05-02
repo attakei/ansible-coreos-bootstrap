@@ -4,7 +4,7 @@ set -e
 
 cd
 
-if [[ -e $HOME/.bootstrapped ]]; then
+if [[ -e /opt/.bootstrapped ]]; then
   exit 0
 fi
 
@@ -15,16 +15,16 @@ mv -n pypy-$PYPY_VERSION-linux64 pypy
 
 ## library fixup
 mkdir -p pypy/lib
-ln -snf /lib64/libncurses.so.5.9 $HOME/pypy/lib/libtinfo.so.5
+ln -snf /lib64/libncurses.so.5.9 /opt/pypy/lib/libtinfo.so.5
 
-mkdir -p $HOME/bin
+mkdir -p /opt/bin
 
-cat > $HOME/bin/python <<EOF
+cat > /opt/bin/python <<EOF
 #!/bin/bash
-LD_LIBRARY_PATH=$HOME/pypy/lib:$LD_LIBRARY_PATH exec $HOME/pypy/bin/pypy "\$@"
+LD_LIBRARY_PATH=/opt/pypy/lib:$LD_LIBRARY_PATH exec /opt/pypy/bin/pypy "\$@"
 EOF
 
-chmod +x $HOME/bin/python
-$HOME/bin/python --version
+chmod +x /opt/bin/python
+/opt/bin/python --version
 
-touch $HOME/.bootstrapped
+touch /opt/.bootstrapped
