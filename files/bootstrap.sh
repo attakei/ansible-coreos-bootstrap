@@ -4,6 +4,10 @@ set -e
 
 cd
 
+if [[ ! -e /opt/ ]]; then
+    mkdir /opt/
+fi
+
 if [[ -e /opt/.bootstrapped ]]; then
   exit 0
 fi
@@ -12,9 +16,10 @@ PYPY_VERSION=2.4.0
 
 wget -O - https://bitbucket.org/pypy/pypy/downloads/pypy-$PYPY_VERSION-linux64.tar.bz2 |tar -xjf -
 mv -n pypy-$PYPY_VERSION-linux64 pypy
+mv -n pypy /opt/
 
 ## library fixup
-mkdir -p pypy/lib
+mkdir -p /opt/pypy/lib
 ln -snf /lib64/libncurses.so.5.9 /opt/pypy/lib/libtinfo.so.5
 
 mkdir -p /opt/bin

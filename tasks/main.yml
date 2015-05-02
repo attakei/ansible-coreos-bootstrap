@@ -27,7 +27,7 @@
   when: need_pip | failed
 
 - name: Install pip launcher
-  copy: src=runner dest=~/bin/pip mode=0755
+  copy: src=runner dest=/opt/bin/pip mode=0755
   when: need_pip | failed
 
 - name: Install docker-py
